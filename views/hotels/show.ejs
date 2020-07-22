@@ -1,0 +1,212 @@
+<%- include ("../partials/header") %>
+<link rel="stylesheet" href="/font/Rimouski.css">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+                <div class="widget" >
+                    <p class="lead">Weather Report</p>
+                <img class="weatherIcon" src="/icons/<%=result.weather[0].icon%>.png" alt="img">
+                    <div id= "weatherInfo">
+                    <div class="temperature"><p><%=result.main.temp%>°<span>C</span></p></div>
+                    <div id="description"><%=result.weather[0].description%></div>
+                        <div id="place"><%=result.name%></div>
+                        <div id="date"><%=date%></div>
+                         </div>
+                    </div>
+     <br>
+    <div id="map" style='width: 100%; height: 400px;'></div>
+     
+    <script>
+        var lon="<%=lon%>";
+        var lat="<%=lat%>";
+        mapboxgl.accessToken = 'pk.eyJ1IjoicmF0dWwxMyIsImEiOiJja2IweXZwbTQwMmNhMnNwamhzdzM4b2dkIn0.qz6yAYWFN5XY2AsBhNcCUA';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [lon,lat],
+    zoom: 8
+    });
+     
+    var marker = new mapboxgl.Marker()
+    .setLngLat([lon,lat])
+    .addTo(map);
+    </script>
+     <br>
+     </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= hotel.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">
+                        Rs.<%=hotel.price %>/night</h4>
+                    <h4><a><%=hotel.name%></a></h4>
+
+
+                    
+                <div class="pull-right">
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                                data-target="#hotelLikes">
+                            <span>Total likes: <i class="fa fa-thumbs-up"></i> <%= hotel.likes.length %></span>
+                        </button>
+                    </div>
+                    <div style="padding-bottom: 10px;">
+                        <form action="/hotels/<%= hotel._id %>/like" method="POST" class="show-form">
+                            <div class="btn-group">
+                                <% if (currentUser && hotel.likes.some(function (like) {
+                                    return like.equals(currentUser._id)
+                                })) { %>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="fa fa-thumbs-up"></i> Liked (<%= hotel.likes.length %>)
+                                </button>
+                                <% } else { %>
+                                <button class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-thumbs-up"></i> Like (<%= hotel.likes.length %>)
+                                </button>
+                                <% } %>
+                                <button type="button" class="btn btn-sm btn-default" data-toggle="modal"
+                                        data-target="#hotelLikes">See more details
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <p><%= hotel.description %></p>
+                    <p>
+                        <em>Submitted by: <a href="/users/<%= hotel.author.id%>"><%= hotel.author.username %></a>, <%= moment(hotel.createdAt).fromNow() %></em>
+                        <% if(currentUser&& hotel.author.id.equals(currentUser._id)|| currentUser && currentUser.isAdmin){ %> 
+                        </p>
+                        <a class="btn btn-warning " href="/hotels/<%= hotel._id %>/edit">Edit</a>
+                        
+                        <form id="delete-form" action="/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                <%}%>
+                    </div>
+            </div>
+
+             <!--Review section-->
+             <div class="thumbnail">
+                <div class="caption-full">
+                    <% if (hotel.rating === 0) { %>
+                    <h5>
+                        <em>No reviews yet.</em>
+                    </h5>
+                    <% } else { %>
+                    <p>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star <% if (hotel.rating > 1.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (hotel.rating > 2.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (hotel.rating > 3.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (hotel.rating > 4.5) { %> checked <% } %>"></span>
+                        <em>(total reviews: <%= hotel.reviews.length %>)</em>
+                    </p>
+                    <p>
+                        Current hotel rating: <strong><%= hotel.rating.toFixed(2) %></strong>
+                    </p>
+                    <p><h4>Latest reviews for this hotel:</h4></p>
+                    <hr style="margin-top: 0;">
+                    <% hotel.reviews.slice(0, 5).forEach(function(review){ %>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                            <div>Review by: <strong><%= review.author.username %></strong></div>
+                            <span><em><%= review.updatedAt.toDateString() %></em></span>
+                        </div>
+                        <div class="col-md-9">
+                            <p style="text-align: justify; word-wrap: break-word;">
+                                <%= review.text %>
+                            </p>
+                            <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning"
+                               href="/hotels/<%=hotel._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/hotels/<%=hotel._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                    <hr>
+                    <% }); %>
+                    <div style="margin-bottom: 10px;">
+                        <h4><a href="/hotels/<%= hotel._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h4>
+                    </div>
+                    <% } %>
+                    <div>
+                        <a class="btn btn-primary btn-lg <% if (currentUser && hotel.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/hotels/<%= hotel._id %>/reviews/new">
+                            Write a New Review</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="well">
+                <div class="text-right">
+                    <a href="/hotels/<%=hotel._id%>/comments/new" class="btn btn-success">Add Comment</a>
+                </div>
+                    <% hotel.comments.forEach(function(comment){ %>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong><%=comment.author.username%></strong>
+                                <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                                <p>
+                                <%=comment.text%>
+                               </p>
+                               <% if(currentUser&& comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %> 
+                               <div class="pull-right">
+                                <a href="/hotels/<%=hotel._id%>/comments/<%=comment._id%>/edit" 
+                                class="btn btn-xs btn-warning">
+                                Edit
+                            </a>
+                            <form id="delete-form" action="/hotels/<%=hotel._id%>/comments/<%=comment._id%>?_method=DELETE"method="POST">
+                                 <button class="btn btn-xs btn-danger" type="submit"> Delete</button>
+                            </form>
+                        </div>
+                       <% } %>
+                            </div>
+                        </div>
+                       <%});%>
+                       </div>
+            </div>
+        </div>
+    </div>
+  <!-- Hotel Likes Modal -->
+<div id="hotelLikes" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Hotel likes: <%= hotel.likes.length %></h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Liked by:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% hotel.likes.forEach(function(like) { %>
+                        <tr>
+                            <td><span class="badge"><i class="fa fa-user"></i></span> <%= like.firstName%></td>
+                        </tr>
+                    <% }); %>
+                    <% if (hotel.likes.length === 0) { %>
+                        <tr>
+                            <td><em>No likes yet.</em></td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ("../partials/footer") %>
+
+
+

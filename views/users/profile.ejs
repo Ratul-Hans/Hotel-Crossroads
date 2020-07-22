@@ -1,0 +1,86 @@
+<%- include ("../partials/header") %>
+
+  <div class="row text-center" style="display:flex; flex-wrap: wrap;"> 
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+            <!-- START PROFILE SIDEBAR -->
+          <div class="profile-sidebar">
+            <!-- Profile Image -->
+            <div class="profile-userpic" style="text-align: center;">
+            <div class="thumbnail" id="user-pic">
+              <img src="<%=  user.profileimage %>" alt="user profile image" class="img-responsive">
+            <!-- Profile Info -->
+            <div class="caption">
+              <div class="profile-userinfo">
+                  <div class="profile-userinfo-username">
+                <p><strong>User name: </strong><%= user.username %></p>
+              </div>
+              <div class="profile-userinfo-fullname">
+                <p><strong>First Name: </strong><%= user.firstName %></p>
+                <p><strong>Last Name: </strong><%= user.lastName %></p>
+              </div>
+                </div>
+            </div>
+            <!-- Social Button -->
+            <div class="profile-userbuttons">
+              <% if(currentUser && (user._id).equals(currentUser._id)){ %>
+                <a href="/users/<%= user._id %>/edit" class="btn btn-danger">Edit</a>
+            <% } %>
+              <a class="btn btn-success btn-sm" href="mailto:<%= user.email %>">Email</a>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>
+        <div class="col-md-9">
+          <!-- User Contents -->
+          <div class="row profile-content">
+            <% hotels.forEach(function(hotel){ %>
+                <div class="col-md-6 col-sm-6">
+                  
+                    <div class="thumbnail">
+                        <img src="<%= hotel.image %>" width="100%"style="height: 300px;">
+                        <div class="caption">
+                            <h4><%=hotel.name %></h4>
+                            
+                            <% if (hotel.rating === 0) { %>
+                              <em>No reviews yet.</em>
+                              <% } else { %>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star <% if (hotel.rating > 1.5) { %> checked <% } %>"></span>
+                              <span class="fa fa-star <% if (hotel.rating > 2.5) { %> checked <% } %>"></span>
+                              <span class="fa fa-star <% if (hotel.rating > 3.5) { %> checked <% } %>"></span>
+                              <span class="fa fa-star <% if (hotel.rating > 4.5) { %> checked <% } %>"></span>
+                              <% } %>
+                          
+
+                                <div>
+                                    <span class="badge label-primary"><i class="fa fa-thumbs-up"></i> <%= hotel.likes.length %></span>
+                                </div>
+                            </div>
+                            <p>
+                                <a href="/hotels/<%=hotel._id%>" class="btn btn-primary">More Info</a>
+                            </p>
+                        </div> 
+                 
+                    </div>             
+                    <%});%> 
+          </div>
+          </div>
+          
+          </div>
+          </div> 
+          </div> 
+          </div>
+
+          <%- include ("../partials/footer") %>
+
+
+
+
+
+
+
+
+

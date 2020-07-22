@@ -1,0 +1,213 @@
+@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css);
+html {
+    position: relative;
+    min-height: 100%;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px; 
+    color: white;
+}
+body {
+  background: #F1F3FA;
+    margin-bottom: 100px;
+}
+.jumbotron {
+ padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.3rem;
+  background: #1a2a6c;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #fdbb2d, #b21f1f, #1a2a6c);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #fdbb2d, #b21f1f, #1a2a6c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+.img-responsive{
+    width: 100%;
+}
+.thumbnail{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding: 0px;
+}
+.show-form{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding: 0px;
+}
+.thumbnail .caption-full{
+    padding: 9px;
+}
+#delete-form{
+    display: inline;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding: 0px;
+    border: none;
+}
+.checked {
+    color: orange;
+}
+.form{
+  background: url(https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 105%;
+  width: 100%;
+}
+.formRegister{
+  background: url(https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 120%;
+  width: 100%;
+}
+.form1{
+  background: url(https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 105%;
+  width: 100%;
+}
+.form2{
+  background: url(https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+form{
+  border: 0px solid #fff;
+  padding: 20px 15px;
+  box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.8);
+}
+#special{
+    box-shadow: none;   
+}
+  #user-pic{
+      height: 37rem;
+      margin-top: 0px;
+  } 
+  .profile-userpic img {
+    float: none;
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 170px;
+    height: 170px;
+    border-radius: 25%;
+    object-fit: cover;       /* Scale the image so it covers whole area, thus will likely crop */
+    object-position: center; /* Center the image within the element */
+  }
+  .profile-userinfo {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-userinfo-fullname {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  .profile-userinfo-username {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+  }
+  #front-img{
+    width: 55px;
+    height: 55px;
+    display: inline;
+    position: relative;
+    bottom:15px;
+  }
+  .lead{
+    text-align: center;
+    position: relative;
+    left: 38px;
+    top: 20px;
+    font-size: 2em;
+    font-weight: 400;
+    color: #293251;
+  }
+  .widget{
+    margin-top: 10px;
+    position: relative;
+    display: flex;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    transform: translate(-1.5%, -3%);
+    flex-wrap: wrap;
+    cursor: pointer;
+    background-color: #F4F9FF;
+    background-color: #e2ebf5;
+  }
+.weatherIcon {
+  padding-top: 10px;
+  padding-left: 70px;
+  flex: 0.4 0 10%;
+  height: 60%;
+  display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 100px;
+}
+  #weatherInfo{
+    flex: 0.5 10% 20% ;
+    flex: 1 0 70%;
+    height: 50%;
+    text-align: center;
+    width: 16.5rem;
+    background: #080705;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    
+  }
+  #weatherInfo{
+    color: white;
+    padding: 0px;
+  }
+  .temperature{
+    font-size: 3em;
+    padding-top: 10px;
+   
+  }
+  .temperature span{
+    font-size: 0.5em;
+  }
+  #description{
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 200;
+    padding-bottom: 7px;
+  }
+  #place {
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 5px;
+  }
+  #date{
+    background: rgb(68, 112, 207);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 5px;
+}

@@ -1,0 +1,57 @@
+<div class="formRegister">
+<%- include ("../partials/header") %>
+
+<div class="container" style="position: relative; bottom: 12px;">
+    <div class="row">
+        <h1 style="text-align: center;">Sign Up</h1>
+        <div style="width:30%; margin: 25px auto;">
+        <form action="/register" method="POST" style="position: relative; top: 10px;" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name">User-Name</label>
+                <input class="form-control"type="text" placeholder="username" name="username" id="name">
+            </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+        <input class="form-control"type="password" placeholder="password" name="password"id="password">
+    </div>
+    <div class="form-group">
+      <label for="firstName">First-Name</label>
+      <input class="form-control" type="text" name="firstName" placeholder="first name"id="firstName">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last-Name</label>
+      <input class="form-control" type="text" name="lastName" placeholder="last name"id="lastName">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+      <input class="form-control" type="email" name="email" placeholder="email"id="email">
+  </div>
+  <div class="form-group">
+    <label for="image">Profile-Image</label>
+    <input type="file" id="image" name="profileimage" accept="image/*" required>
+</div>
+    <div class="form-group">
+      <label for="adminCode">Admin-Code</label>
+      <input class="form-control" type="password" name="adminCode" placeholder="Admin code"id="adminCode">
+  </div>
+    <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+      </div>    
+    </form>
+    <br>
+    <div class="col-md-12">
+      <center>Already Have an account? <a href="/login">Login</a></center>
+    </div>
+    </div>    
+    </div>
+</div>
+<br> <br>
+</div>
+<footer id="footer" class="footer" style="background-color: black;color:#fff; position: absolute; bottom: -150px;">
+  <div class="container">
+    <p class="text-muted"><center>&copy; Hotel Crossroads 2020 | <a href="/hotels" style="color: white;">Home</a> | <a href="/hotels/new" style="color: white;">New Hotel</a></center></p>
+  </div>
+</footer>
+</body>
+</html>
+

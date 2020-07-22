@@ -1,0 +1,123 @@
+<%- include ("../partials/header") %>
+<script>
+function showNotification(){
+    var notification=new Notification("New Message from Hotel Crossroads!",{
+        body:"Hey! Welcome to have amazing choice of Hotels",
+        icon:"https://img.icons8.com/emoji/48/000000/love-hotel.png/"
+    });
+}
+if(Notification.permission==="granted"){
+    showNotification();
+}
+    else if(Notification.permission!=="denied")
+    {
+        Notification.requestPermission().then(function(permission){ 
+            if(permission==="granted")
+            showNotification();
+        });
+         
+    }       
+</script>
+<div class="container index">
+<header class="jumbotron">
+    <div class="container">
+    <h1>Welcome To Hotel Crossroads</h1>
+    <p>View our hand-picked hotels from all over the world!</p>
+    <p>
+    <a href="/hotels/new" class="btn btn-success btn-lg">Add New Hotel</a>
+    </p>
+    <p>
+        <form id="special" action="/hotels" method="GET"class="form-inline">
+            <div class="form-group">
+                <input style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);"  class="form-control" type="search" name="search" placeholder="Hotel-search...">
+                <button style="box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);"  class="btn btn-default">Search</button>
+            </div>
+        </form>
+    </p>
+</div>
+</header>
+<div class="row text-center" style="display:flex; flex-wrap: wrap;"> 
+    <div class="col-md-12">
+        <% if(noMatch!==null) { %>
+        <h3><%= noMatch %></h3>
+        <% } %>
+    </div>
+<% hotels.forEach(function(hotel){%>
+<div class="col-md-4 col-sm-6">
+    <div class="thumbnail">
+        <img src="<%= hotel.image %>" width="100%" style="height: 300px;">
+        <div class="caption">
+            <h4><%=hotel.name %></h4>
+
+            <% if (hotel.rating === 0) { %>
+                <em>No reviews yet.</em>
+                <% } else { %>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star <% if (hotel.rating > 1.5) { %> checked <% } %>"></span>
+                <span class="fa fa-star <% if (hotel.rating > 2.5) { %> checked <% } %>"></span>
+                <span class="fa fa-star <% if (hotel.rating > 3.5) { %> checked <% } %>"></span>
+                <span class="fa fa-star <% if (hotel.rating > 4.5) { %> checked <% } %>"></span>
+                <% } %>
+
+                
+            <div>
+                <span class="badge label-primary"><i class="fa fa-thumbs-up"></i> <%= hotel.likes.length %></span>
+            </div>
+        </div>
+        <p>
+            <a href="/hotels/<%=hotel._id%>" class="btn btn-primary">More Info</a>
+        </p>
+    </div>
+</div>
+<%});%>
+</div>
+
+
+<div class="row text-center">
+    <% if (pages && pages > 0) { %>
+    <ul class="pagination text-center">
+        <% if (current == 1) { %>
+        <li class="disabled"><a>First</a></li>
+        <% } else { %>
+        <li><a href="/hotels">First</a></li>
+        <% } %>
+ 
+        <% if (current == 1) { %>
+        <li class="disabled"><a>«</a></li>
+        <% } else { %>
+        <li><a href="/hotels?page=<%= Number(current) - 1 %>">«</a></li>
+        <% } %>
+ 
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="disabled"><a>...</a></li>
+        <% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+        <% if (i == current) { %>
+        <li class="active"><a><%= i %></a></li>
+        <% } else { %>
+        <li><a href="/hotels?page=<%= i %>"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(current) + 4 && i < pages) { %>
+        <li class="disabled"><a>...</a></li>
+        <% } %>
+        <% } %>
+ 
+        <% if (current == pages) { %>
+        <li class="disabled"><a>»</a></li>
+        <% } else { %>
+        <li><a href="/hotels?page=<%= Number(current) + 1 %>">»</a></li>
+        <% } %>
+ 
+        <% if (current == pages) { %>
+        <li class="disabled"><a>Last</a></li>
+        <% } else { %>
+        <li><a href="/hotels?page=<%= pages %>">Last</a></li>
+        <% } %>
+    </ul>
+    <% } %>
+</div>
+
+</div>
+
+<%- include ("../partials/footer") %>

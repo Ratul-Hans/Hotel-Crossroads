@@ -1,0 +1,43 @@
+<div class="form">
+<%- include ("../partials/header") %>
+<div class="container" style="position: relative; top: 35px;">
+    <div class="row text-center mb-4">
+      <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+        <h1 style="text-align: center;">Login</h1>
+        <div style="width:30%; margin: 25px auto;">
+        <form action="/login" method="POST" style="position: relative; top: 10px; text-align: left;">
+            <div class="form-group">
+              <label for="username">User-Name</label>
+                <input class="form-control"type="text" placeholder="username" name="username"id="username">
+            </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+        <input class="form-control"type="password" placeholder="password" name="password"id="password">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Login!</button>
+      </div>    
+    </form>
+    <br> <br>
+    <div class="col-md-12">
+      <center><a href="/forgot">Forgot Password?</a></center>
+      <br>
+      <center>Need an account? <a href="/register">Sign Up</a></center>
+    </div> 
+    </div>  
+    </div>
+</div>
+
+<br> <br>
+</div>
+<footer id="footer" class="footer" style="background-color: black;color:#fff; position: absolute; bottom: -40px;">
+  <div class="container">
+    <p class="text-muted"><center>&copy; Hotel Crossroads 2020 | <a href="/hotels" style="color: white;">Home</a> | <a href="/hotels/new" style="color: white;">New Hotel</a></center></p>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
