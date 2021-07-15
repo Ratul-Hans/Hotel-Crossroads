@@ -55,5 +55,6 @@ export CLOUDINARY_API_SECRET=<'your secret api key'>
 
 # Website Url:-
 https://hotel-crossroads.herokuapp.com/
-# License
+<!-- # License
 This project is licensed under the ISC License - see the LICENSE file for details. Readme template is taken from github
+ -->
